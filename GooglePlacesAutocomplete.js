@@ -668,10 +668,6 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
   const _onFocus = () => setListViewDisplayed(true);
 
   const _renderPoweredLogo = () => {
-    if (!_shouldShowPoweredLogo()) {
-      return null;
-    }
-
     return (
       <View
         style={[
@@ -690,6 +686,22 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
         />
       </View>
     );
+  };
+
+  const _renderListFooter = () => {
+    if (_shouldShowPoweredLogo() && props.renderFooterComponent()) {
+      return (
+        <>
+          {props.renderFooterComponent()}
+          {_renderPoweredLogo()}
+        </>
+      );
+    } else if (!_shouldShowPoweredLogo() && props.renderFooterComponent()) {
+      return props.renderFooterComponent();
+    } else if (_shouldShowPoweredLogo && props.renderFooterComponent()) {
+      return _renderPoweredLogo();
+    }
+    return null;
   };
 
   const _shouldShowPoweredLogo = () => {
@@ -753,7 +765,7 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
             props.renderHeaderComponent &&
             props.renderHeaderComponent(stateText)
           }
-          ListFooterComponent={_renderPoweredLogo}
+          ListFooterComponent={_renderListFooter}
           {...props}
         />
       );
@@ -856,6 +868,7 @@ GooglePlacesAutocomplete.propTypes = {
   query: PropTypes.object,
   renderDescription: PropTypes.func,
   renderHeaderComponent: PropTypes.func,
+  renderFooterComponent: PropTypes.func,
   renderLeftButton: PropTypes.func,
   renderRightButton: PropTypes.func,
   renderRow: PropTypes.func,

@@ -410,6 +410,7 @@ interface GooglePlacesAutocompleteProps {
   query: Query | Object;
   renderDescription?: (description: DescriptionRow) => string;
   renderHeaderComponent?: () => JSX.Element | React.ComponentType<{}>;
+  renderFooterComponent?: () => JSX.Element | React.ComponentType<{}>;
   renderLeftButton?: () => JSX.Element | React.ComponentType<{}>;
   renderRightButton?: () => JSX.Element | React.ComponentType<{}>;
   renderRow?: (
