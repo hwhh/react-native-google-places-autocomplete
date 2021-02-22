@@ -689,16 +689,16 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
   };
 
   const _renderListFooter = () => {
-    if (_shouldShowPoweredLogo() && props.renderFooterComponent()) {
+    if (_shouldShowPoweredLogo() && props.renderFooterComponent) {
       return (
         <>
           {props.renderFooterComponent()}
           {_renderPoweredLogo()}
         </>
       );
-    } else if (!_shouldShowPoweredLogo() && props.renderFooterComponent()) {
+    } else if (!_shouldShowPoweredLogo() && props.renderFooterComponent) {
       return props.renderFooterComponent();
-    } else if (_shouldShowPoweredLogo && props.renderFooterComponent()) {
+    } else if (_shouldShowPoweredLogo && props.renderFooterComponent) {
       return _renderPoweredLogo();
     }
     return null;
