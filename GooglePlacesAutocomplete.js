@@ -141,6 +141,10 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    // Update dataSource if props.predefinedPlaces changed
+    setDataSource(buildRowsFromResults([])) 
+  }, [props.predefinedPlaces])
 
   useImperativeHandle(ref, () => ({
     setAddressText: (address) => {
@@ -509,7 +513,7 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
 
       request.open(
         'GET',
-        `${url}/place/autocomplete/json?&input=` +
+        `${url}/place/autocomplete/json?input=` +
           encodeURIComponent(text) +
           '&' +
           Qs.stringify(props.query),
@@ -525,7 +529,7 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debounceData = useMemo(() => debounce(_request, props.debounce), []);
+  const debounceData = useMemo(() => debounce(_request, props.debounce), [props.query]);
 
   const _onChangeText = (text) => {
     setStateText(text);
@@ -661,7 +665,9 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
   const _onBlur = (e) => {
     if (e && isNewFocusInAutocompleteResultList(e)) return;
 
-    setListViewDisplayed(false);
+    if (!props.keepResultsAfterBlur) {
+      setListViewDisplayed(false);
+    }
     inputRef?.current?.blur();
   };
 
@@ -854,6 +860,7 @@ GooglePlacesAutocomplete.propTypes = {
   listEmptyComponent: PropTypes.func,
   listUnderlayColor: PropTypes.string,
   listViewDisplayed: PropTypes.oneOf(['auto', PropTypes.bool]),
+  keepResultsAfterBlur: PropTypes.bool,
   minLength: PropTypes.number,
   nearbyPlacesAPI: PropTypes.string,
   numberOfLines: PropTypes.number,
@@ -903,6 +910,7 @@ GooglePlacesAutocomplete.defaultProps = {
   keyboardShouldPersistTaps: 'always',
   listUnderlayColor: '#c8c7cc',
   listViewDisplayed: 'auto',
+  keepResultsAfterBlur: false,
   minLength: 0,
   nearbyPlacesAPI: 'GooglePlacesSearch',
   numberOfLines: 1,

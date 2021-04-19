@@ -1,4 +1,9 @@
-# react-native-google-places-autocomplete
+
+<a href="https://www.npmjs.com/package/react-native-google-places-autocomplete">
+  <img alt="npm version" src="https://img.shields.io/npm/v/react-native-google-places-autocomplete"/>
+</a>
+
+# Google Maps Search Component for React Native
 
 **Customizable Google Places autocomplete component for iOS and Android React-Native apps**
 
@@ -473,7 +478,7 @@ If you need to include this component inside a ScrolView or FlatList, remember t
 Google Provides a bunch of web APIs for finding an address or place, and getting it’s details.
 There are the Google Places Web APIs ([Place Search](https://developers.google.com/places/web-service/search), [Place Details](https://developers.google.com/places/web-service/details), [Place Photos](https://developers.google.com/places/web-service/photos), [Place Autocomplete](https://developers.google.com/places/web-service/autocomplete), [Query Autocomplete](https://developers.google.com/places/web-service/query)) and the [Google Geocode API](https://developers.google.com/maps/documentation/geocoding/intro) .
 
-The are 5 Google Places APIs:
+The 5 Google Places Web APIs are:
 
 - **Place Autocomplete -** automatically fills in the name and/or address of a place as users type.
 - **Place Details -** returns more detailed information about a specific place (using a place_id that you get from Place Search, Place Autocomplete, or Query Autocomplete).
